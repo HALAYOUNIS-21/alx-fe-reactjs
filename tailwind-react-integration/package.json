@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -26,6 +28,8 @@
     "globals": "^15.12.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
-    "vite": "^6.0.1"
+    "vite": "^6.0.1",
+    "@tailwindcss/forms": "^x.x.x",
+  "@tailwindcss/typography": "^x.x.x"
   }
 }
