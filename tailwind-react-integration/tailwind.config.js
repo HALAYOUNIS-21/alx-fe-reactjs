@@ -1,7 +1,12 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"], // Ensure unused styles are removed in production
+  darkMode: "media", // Enable dark mode support
   theme: {
-    extend: {},
+    extend: {}, // Extend Tailwind's default theme
   },
-  plugins: [],
+  variants: {
+    extend: {}, // Extend Tailwind's default variants
+  },
+  plugins: [], // Add plugins if needed
 };
