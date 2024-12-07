@@ -1,12 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./index.html",             // Scan the index.html file
-    "./src/**/*.{js,jsx,ts,tsx}" // Scan all files in the src folder
+    "./index.html", // Include your index.html file
+    "./src/**/*.{js,jsx,ts,tsx}", // Include all files in the src folder
   ],
-  darkMode: "class", // Optional: Enables class-based dark mode (e.g., 'dark:bg-black')
   theme: {
-    extend: {}, // Use this to extend the default theme if needed
+    extend: {}, // Use this to customize or extend the default theme
   },
-  plugins: [], // Add any Tailwind CSS plugins here
+  plugins: [], // Add Tailwind plugins here, if needed
 };
