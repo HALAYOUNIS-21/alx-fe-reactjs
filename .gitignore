@@ -28,3 +28,4 @@ dist-ssr
 *.sln
 *.sw?
 >>>>>>> c781e69bfb2ad0f77bae6ca278c4552ea29a4428
+.vite/
