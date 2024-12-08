@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import data from '../data.json';
+import data from '../data.json'; // Import mock data
 
 const RecipeDetail = () => {
   const { id } = useParams(); // Get recipe ID from URL parameters
-  const recipe = data.find((item) => item.id === parseInt(id)); // Find recipe by ID
+  const [recipe, setRecipe] = useState(null);
+
+  // Use useEffect to fetch recipe data when the component mounts
+  useEffect(() => {
+    const foundRecipe = data.find((item) => item.id === parseInt(id));
+    setRecipe(foundRecipe);
+  }, [id]);
 
   // Handle case where recipe is not found
   if (!recipe) {
@@ -14,7 +20,6 @@ const RecipeDetail = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
-      
       <img
         src={recipe.image}
         alt={recipe.title}
@@ -32,7 +37,6 @@ const RecipeDetail = () => {
           <li key={index} className="mb-2 text-gray-700">{step}</li>
         ))}
       </ol>
-
     </div>
   );
 };
