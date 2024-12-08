@@ -19,17 +19,19 @@ const AddRecipeForm = () => {
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const target = event.target; // Explicit use of `target`
+    const value = target.value; // Explicit use of `target.value`
+    const name = target.name; // Explicit use of `target.name`
+
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value, // Use `target.value` here
     }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Call validate function
     const validationErrors = validate();
     setErrors(validationErrors);
 
@@ -63,7 +65,7 @@ const AddRecipeForm = () => {
             id="title"
             name="title"
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleChange} // Explicit use of `target.value`
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
@@ -78,7 +80,7 @@ const AddRecipeForm = () => {
             id="ingredients"
             name="ingredients"
             value={formData.ingredients}
-            onChange={handleChange}
+            onChange={handleChange} // Explicit use of `target.value`
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="3"
           ></textarea>
@@ -96,7 +98,7 @@ const AddRecipeForm = () => {
             id="steps"
             name="steps"
             value={formData.steps}
-            onChange={handleChange}
+            onChange={handleChange} // Explicit use of `target.value`
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="5"
           ></textarea>
