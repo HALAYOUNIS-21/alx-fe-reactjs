@@ -1,12 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import data from '../data.json'; // Import mock data
+import data from '../data.json';
 
 const RecipeDetail = () => {
-  const { id } = useParams(); // Get recipe ID from URL parameters
-  const recipe = data.find((item) => item.id === parseInt(id)); // Find recipe by ID
+  const { id } = useParams();
+  const recipe = data.find((item) => item.id === parseInt(id));
 
-  // Handle case where recipe is not found
   if (!recipe) {
     return <p className="text-center text-red-500">Recipe not found!</p>;
   }
@@ -14,7 +13,6 @@ const RecipeDetail = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
-      
       <img
         src={recipe.image}
         alt={recipe.title}
@@ -32,7 +30,6 @@ const RecipeDetail = () => {
           <li key={index} className="mb-2 text-gray-700">{step}</li>
         ))}
       </ol>
-
     </div>
   );
 };
