@@ -9,15 +9,19 @@ const AddRecipeForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleChange = (event) => {
+    const target = event.target; // Extract `target` from the event
+    const { name, value } = target; // Get `name` and `value` from `target`
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    // Validation
+    // Validate inputs
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = 'Title is required';
     if (!formData.ingredients.trim()) newErrors.ingredients = 'Ingredients are required';
@@ -25,17 +29,17 @@ const AddRecipeForm = () => {
 
     setErrors(newErrors);
 
+    // Submit if no errors
     if (Object.keys(newErrors).length === 0) {
-      // Submit the form
       console.log('New Recipe:', formData);
+      alert('Recipe added successfully!');
 
-      // Clear form
+      // Reset form
       setFormData({
         title: '',
         ingredients: '',
         steps: '',
       });
-      alert('Recipe added successfully!');
     }
   };
 
@@ -46,6 +50,7 @@ const AddRecipeForm = () => {
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto"
       >
+        {/* Recipe Title */}
         <div className="mb-4">
           <label htmlFor="title" className="block text-gray-700 font-medium mb-2">
             Recipe Title
@@ -55,12 +60,13 @@ const AddRecipeForm = () => {
             id="title"
             name="title"
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleChange} // Use `handleChange` with `target.value`
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
         </div>
 
+        {/* Ingredients */}
         <div className="mb-4">
           <label htmlFor="ingredients" className="block text-gray-700 font-medium mb-2">
             Ingredients (separated by commas)
@@ -69,7 +75,7 @@ const AddRecipeForm = () => {
             id="ingredients"
             name="ingredients"
             value={formData.ingredients}
-            onChange={handleChange}
+            onChange={handleChange} // Use `handleChange` with `target.value`
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="3"
           ></textarea>
@@ -78,6 +84,7 @@ const AddRecipeForm = () => {
           )}
         </div>
 
+        {/* Steps */}
         <div className="mb-4">
           <label htmlFor="steps" className="block text-gray-700 font-medium mb-2">
             Preparation Steps
@@ -86,13 +93,14 @@ const AddRecipeForm = () => {
             id="steps"
             name="steps"
             value={formData.steps}
-            onChange={handleChange}
+            onChange={handleChange} // Use `handleChange` with `target.value`
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="5"
           ></textarea>
           {errors.steps && <p className="text-red-500 text-sm mt-1">{errors.steps}</p>}
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="bg-blue-500 text-white font-medium px-6 py-2 rounded-lg hover:bg-blue-600 transition"
