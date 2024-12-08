@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import data from '../data.json';
 
 const RecipeDetail = () => {
-  const { id } = useParams();
-  const recipe = data.find((item) => item.id === parseInt(id));
+  const { id } = useParams(); // Get recipe ID from URL parameters
+  const recipe = data.find((item) => item.id === parseInt(id)); // Find recipe by ID
 
+  // Handle case where recipe is not found
   if (!recipe) {
     return <p className="text-center text-red-500">Recipe not found!</p>;
   }
@@ -13,6 +14,7 @@ const RecipeDetail = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
+      
       <img
         src={recipe.image}
         alt={recipe.title}
@@ -30,6 +32,7 @@ const RecipeDetail = () => {
           <li key={index} className="mb-2 text-gray-700">{step}</li>
         ))}
       </ol>
+
     </div>
   );
 };
