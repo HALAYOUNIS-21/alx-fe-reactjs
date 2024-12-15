@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://api.github.com/search/users';
-
 /**
  * Fetches users from GitHub based on advanced search criteria.
  *
@@ -13,14 +11,17 @@ const BASE_URL = 'https://api.github.com/search/users';
  * @returns {Promise<Object>} - The API response containing the search results.
  */
 export const fetchAdvancedUsers = async ({ searchTerm, location, minRepos, page = 1 }) => {
+    // Base GitHub search API URL
+    const BASE_URL = 'https://api.github.com/search/users?q';
+
     // Construct the query string
-    let query = `q=${searchTerm}`;
+    let query = `${searchTerm}`;
     if (location) query += `+location:${location}`;
     if (minRepos) query += `+repos:>=${minRepos}`;
 
     try {
-        // Make the API request to GitHub's search endpoint
-        const response = await axios.get(`${BASE_URL}?${query}&page=${page}`);
+        // Make the API request to the GitHub search endpoint
+        const response = await axios.get(`${BASE_URL}${query}&page=${page}`);
         return response.data; // Return the response data containing users
     } catch (error) {
         console.error('Error fetching advanced users:', error);
