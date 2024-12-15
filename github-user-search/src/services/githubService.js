@@ -1,5 +1,23 @@
 import axios from 'axios';
 
+const BASE_URL = 'https://api.github.com';
+
+/**
+ * Fetches a single user by username.
+ *
+ * @param {string} username - The GitHub username to search for.
+ * @returns {Promise<Object>} - The API response containing user data.
+ */
+export const fetchUserData = async (username) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/users/${username}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+};
+
 /**
  * Fetches users from GitHub based on advanced search criteria.
  *
@@ -11,18 +29,13 @@ import axios from 'axios';
  * @returns {Promise<Object>} - The API response containing the search results.
  */
 export const fetchAdvancedUsers = async ({ searchTerm, location, minRepos, page = 1 }) => {
-    // Base GitHub search API URL
-    const BASE_URL = 'https://api.github.com/search/users?q';
-
-    // Construct the query string
-    let query = `${searchTerm}`;
+    let query = `q=${searchTerm}`;
     if (location) query += `+location:${location}`;
     if (minRepos) query += `+repos:>=${minRepos}`;
 
     try {
-        // Make the API request to the GitHub search endpoint
-        const response = await axios.get(`${BASE_URL}${query}&page=${page}`);
-        return response.data; // Return the response data containing users
+        const response = await axios.get(`${BASE_URL}/search/users?${query}&page=${page}`);
+        return response.data;
     } catch (error) {
         console.error('Error fetching advanced users:', error);
         throw error;
