@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
-import fetchUserData from '../services/githubService';
+import axios from 'axios';
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Check for empty input
+        if (!searchTerm.trim()) {
+            setError('Please enter a valid GitHub username.');
+            setUserData(null);
+            return;
+        }
+
         setLoading(true);
-        setError(false);
+        setError('');
         setUserData(null);
 
         try {
-            const data = await fetchUserData(searchTerm);
-            setUserData(data);
+            const response = await axios.get(`https://api.github.com/users/${searchTerm}`);
+            setUserData(response.data);
         } catch (err) {
-            setError(true);
+            if (err.response && err.response.status === 404) {
+                setError("Looks like we can't find the user.");
+            } else {
+                setError('An error occurred. Please try again later.');
+            }
         } finally {
             setLoading(false);
         }
@@ -32,12 +44,13 @@ const Search = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button type="submit">Search</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Searching...' : 'Search'}
+                </button>
             </form>
 
-            {/* Conditional Rendering */}
-            {loading && <p>Loading...</p>}
-            {error && <p>Looks like we can't find the user.</p>}
+            {/* Feedback Messages */}
+            {error && <p className="error-message">{error}</p>}
             {userData && (
                 <div className="user-data">
                     <img src={userData.avatar_url} alt={`${userData.login}'s avatar`} />
