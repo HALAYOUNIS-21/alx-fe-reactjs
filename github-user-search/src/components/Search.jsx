@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { fetchAdvancedUsers } from '../services/githubService';
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -15,14 +15,9 @@ const Search = () => {
         setError('');
         setUsers([]);
 
-        // Build the advanced query
-        let query = `q=${searchTerm}`;
-        if (location) query += `+location:${location}`;
-        if (minRepos) query += `+repos:>=${minRepos}`;
-
         try {
-            const response = await axios.get(`https://api.github.com/search/users?${query}`);
-            setUsers(response.data.items);
+            const data = await fetchAdvancedUsers({ searchTerm, location, minRepos });
+            setUsers(data.items); // `items` contains the list of users
         } catch (err) {
             setError('Failed to fetch users. Please try again later.');
         } finally {
@@ -32,63 +27,57 @@ const Search = () => {
 
     return (
         <div className="search p-5">
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white p-4 rounded-lg shadow-lg space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="username" className="block text-gray-700">Username</label>
+                    <label>Username</label>
                     <input
-                        id="username"
                         type="text"
-                        placeholder="GitHub username"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        placeholder="GitHub username"
+                        className="border rounded w-full p-2"
                     />
                 </div>
                 <div>
-                    <label htmlFor="location" className="block text-gray-700">Location</label>
+                    <label>Location</label>
                     <input
-                        id="location"
                         type="text"
-                        placeholder="e.g., San Francisco"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        placeholder="Location"
+                        className="border rounded w-full p-2"
                     />
                 </div>
                 <div>
-                    <label htmlFor="minRepos" className="block text-gray-700">Minimum Repositories</label>
+                    <label>Minimum Repositories</label>
                     <input
-                        id="minRepos"
                         type="number"
-                        placeholder="e.g., 10"
                         value={minRepos}
                         onChange={(e) => setMinRepos(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        placeholder="Minimum repos"
+                        className="border rounded w-full p-2"
                     />
                 </div>
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                     {loading ? 'Searching...' : 'Search'}
                 </button>
             </form>
 
-            {error && <p className="text-red-500 mt-4">{error}</p>}
+            {error && <p className="text-red-500">{error}</p>}
+
             <div className="mt-4">
                 {users.map((user) => (
-                    <div key={user.id} className="p-4 border-b">
+                    <div key={user.id} className="border p-2 rounded mb-2">
                         <img
                             src={user.avatar_url}
-                            alt={`${user.login}'s avatar`}
+                            alt={user.login}
                             className="w-16 h-16 rounded-full"
                         />
                         <h3 className="text-lg font-bold">{user.login}</h3>
-                        {user.location && <p>{user.location}</p>}
                         <a
                             href={user.html_url}
                             target="_blank"
