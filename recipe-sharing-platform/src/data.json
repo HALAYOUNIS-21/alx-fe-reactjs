@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "/images/spaghetti-carbonara.jpg",
+    "ingredients": ["200g spaghetti", "2 eggs", "100g bacon", "50g Parmesan cheese", "Black pepper"],
+    "instructions": [
+      "Boil the spaghetti in salted water until al dente.",
+      "Cook the bacon in a pan until crispy.",
+      "Whisk the eggs and Parmesan together in a bowl.",
+      "Combine the spaghetti, bacon, and egg mixture quickly.",
+      "Serve with a sprinkle of black pepper."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery and creamy tomato-based gravy.",
+    "image": "/images/chicken-tikka-masala.jpg",
+    "ingredients": ["500g chicken", "2 cups tomato puree", "1 cup heavy cream", "1 tbsp garam masala", "Salt to taste"],
+    "instructions": [
+      "Marinate the chicken with yogurt and spices, then grill until cooked.",
+      "Prepare the gravy by sautéing onions, garlic, and ginger in butter.",
+      "Add tomato puree and spices, then simmer.",
+      "Stir in heavy cream and add the grilled chicken.",
+      "Serve with naan or rice."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Avocado Toast",
+    "summary": "A quick and healthy breakfast with smashed avocado, lemon juice, and a sprinkle of salt.",
+    "image": "/images/avocado-toast.jpg",
+    "ingredients": ["2 slices of bread", "1 ripe avocado", "1 tbsp lemon juice", "Salt to taste", "Optional toppings: chili flakes, cherry tomatoes"],
+    "instructions": [
+      "Toast the bread slices to your liking.",
+      "Mash the avocado with lemon juice and a pinch of salt.",
+      "Spread the avocado mixture on the toasted bread.",
+      "Add optional toppings like chili flakes or cherry tomatoes.",
+      "Serve immediately."
+    ]
+  }
+]
