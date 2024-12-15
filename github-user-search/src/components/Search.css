@@ -1,0 +1,13 @@
+.search {
+    text-align: center;
+    margin: 20px;
+}
+
+.user-data img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.user-data {
+    margin-top: 20px;
+}
