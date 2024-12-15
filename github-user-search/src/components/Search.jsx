@@ -35,7 +35,7 @@ const Search = () => {
                 <button type="submit">Search</button>
             </form>
 
-            {/* Conditional Rendering for API State */}
+            {/* Conditional Rendering */}
             {loading && <p>Loading...</p>}
             {error && <p>Looks like we can't find the user.</p>}
             {userData && (
