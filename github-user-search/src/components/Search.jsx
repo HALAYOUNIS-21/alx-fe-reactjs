@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import fetchUserData from '../services/githubService';
-import './Search.css';
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -36,6 +35,7 @@ const Search = () => {
                 <button type="submit">Search</button>
             </form>
 
+            {/* Conditional Rendering for API State */}
             {loading && <p>Loading...</p>}
             {error && <p>Looks like we can't find the user.</p>}
             {userData && (
